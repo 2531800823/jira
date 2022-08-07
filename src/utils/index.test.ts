@@ -9,14 +9,14 @@ const deepTest = (obj: any, obj2: any) => {
 };
 
 test("should 测试 是否成功克隆对象", () => {
-  const obj: any = { a: 1, b: 1, c: [1, 2, 3, 4] };
+  const obj: any = { a: 0, b: 1, c: [{ a: 10 }, 2, 3, 4] };
 
   const result = cleanObject(obj);
-  expect(result).toEqual(obj);
+  //   expect(result).toEqual(obj);
 
   deepTest(result, obj);
 
-  obj.c.push(22);
+  obj.c[0].a = 11;
   deepTest(result, obj);
   expect(result).not.toEqual(obj);
 });

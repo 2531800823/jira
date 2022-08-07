@@ -1,11 +1,24 @@
 interface IObj {
   [key: string]: any;
 }
+
 export const cleanObject = (obj: IObj) => {
   const result: IObj = {};
 
   if (!obj) {
     return null;
+  }
+
+  if (typeof obj !== "object") {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    const tempArr: any[] = [];
+    obj.forEach((item) => {
+      tempArr.push(cleanObject(item));
+    });
+    return tempArr;
   }
 
   for (const key in obj) {
