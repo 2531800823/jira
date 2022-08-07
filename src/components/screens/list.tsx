@@ -1,22 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
+import { IUsers } from ".";
 
-interface ListProps {}
-const apiUrl = import.meta.env.VITE_APP_API_URL;
-console.log(apiUrl);
+interface ListProps {
+  users: IUsers[];
+  list: any[];
+}
 const List: FC<ListProps> = (props) => {
-  const [list, setList] = useState([]);
-  const {} = props;
+  const { list, users } = props;
 
-  useEffect(() => {
-    fetch(`${apiUrl}/projects`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setList(res);
-      });
-  }, []);
-
-  console.log("List");
   return (
     <table>
       <thead>
@@ -28,8 +19,8 @@ const List: FC<ListProps> = (props) => {
       <tbody>
         {list.map((item) => (
           <tr key={item.id}>
-            <td>{item.organization}</td>
             <td>{item.name}</td>
+            <td>{users?.find((ites) => ites.id === item.personId)?.name}</td>
           </tr>
         ))}
       </tbody>

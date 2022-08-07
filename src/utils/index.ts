@@ -2,11 +2,12 @@ interface IObj {
   [key: string]: any;
 }
 
+// 深拷贝
 export const cleanObject = (obj: IObj) => {
   const result: IObj = {};
 
   if (!obj) {
-    return null;
+    return undefined;
   }
 
   if (typeof obj !== "object") {
@@ -32,4 +33,19 @@ export const cleanObject = (obj: IObj) => {
   }
 
   return result;
+};
+
+export const isFalsy = (value: number) => (value === 0 ? false : !value);
+
+// 删除为null的对象,返回一个新对象
+export const delIsNull = <T>(obj: T): T => {
+  const result = cleanObject(obj);
+  Object.keys(obj).forEach((item: string) => {
+    if (isFalsy((obj as any)[item])) {
+      console.log(1);
+
+      delete result?.[item];
+    }
+  });
+  return result as T;
 };

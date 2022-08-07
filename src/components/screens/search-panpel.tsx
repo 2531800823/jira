@@ -1,29 +1,22 @@
-import React, { FC, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { IParams, IUsers } from ".";
 
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
-interface SearchPanelProps {}
+interface SearchPanelProps {
+  param: IParams;
+  setParam: Dispatch<SetStateAction<IParams>>;
+  users: IUsers[];
+}
 
 const SearchPanel: FC<SearchPanelProps> = (props) => {
-  const {} = props;
-  console.log("SearchPanel");
-
-  const [param, setParam] = useState({
-    name: "",
-    personId: "",
-  });
-
-  const [users, setUsers] = useState<{ name: string; id: number }[]>([]);
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    fetch(`${apiUrl}/users`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        setUsers(res);
-      });
-  }, [param]);
+  const { param, setParam, users } = props;
 
   return (
     <form action="">
