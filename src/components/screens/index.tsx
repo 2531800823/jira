@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import SearchPanel from "./search-panpel";
 import List from "./list";
-import { delIsNull } from "@/utils";
+import { delIsNull, useDebounce } from "@/utils";
 import qs from "qs";
 
 interface ListScreenProps {}
@@ -22,6 +22,8 @@ const ListScreen: FC<ListScreenProps> = (props) => {
     name: "",
     personId: "",
   });
+
+  const debounceValue = useDebounce<IParams>(param, 2000);
   const [list, setList] = useState([]);
 
   const [users, setUsers] = useState<IUsers[]>([]);
@@ -36,13 +38,13 @@ const ListScreen: FC<ListScreenProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    const temp = delIsNull<IParams>(param);
+    const temp = delIsNull<IParams>(debounceValue);
     fetch(`${apiUrl}/projects/?${qs.stringify(temp)}`)
       .then((res) => res.json())
       .then((res) => {
         setList(res);
       });
-  }, [param]);
+  }, [debounceValue]);
 
   return (
     <div>

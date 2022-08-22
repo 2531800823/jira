@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 interface IObj {
   [key: string]: any;
 }
@@ -42,10 +43,27 @@ export const delIsNull = <T>(obj: T): T => {
   const result = cleanObject(obj);
   Object.keys(obj).forEach((item: string) => {
     if (isFalsy((obj as any)[item])) {
-      console.log(1);
-
       delete result?.[item];
     }
   });
   return result as T;
+};
+
+export const useMount = (fn: Function) => {
+  useEffect(() => {
+    fn();
+  }, []);
+};
+
+export const useDebounce = <T>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [delay, value]);
+
+  return debouncedValue;
 };
