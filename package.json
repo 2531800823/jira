@@ -2,13 +2,12 @@
   "name": "myjira",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "json-server": "json-server __json_server_mock__/db.json --watch --port 3000",
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 3000 --middlewares __json_server_mock__/middleware.js",
     "test": "set NODE_OPTIONS=--experimental-vm-modules && jest  --watch",
     "testAll": "set NODE_OPTIONS=--experimental-vm-modules && jest  --watchAll"
   },
