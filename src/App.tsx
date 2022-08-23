@@ -1,4 +1,4 @@
-import Screens from "@/components/screens";
+import Screens from "@/components/screens/project-list";
 
 function App() {
   return (

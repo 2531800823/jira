@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import SearchPanel from "./search-panpel";
 import List from "./list";
-import { delIsNull, useDebounce } from "@/utils";
+import { delIsNull } from "@/utils";
 import qs from "qs";
+import { useDebounce } from "@/hooks";
 
 interface ListScreenProps {}
 const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -23,7 +24,8 @@ const ListScreen: FC<ListScreenProps> = (props) => {
     personId: "",
   });
 
-  const debounceValue = useDebounce<IParams>(param, 2000);
+  const debounceValue = useDebounce<IParams>(param, 500);
+
   const [list, setList] = useState([]);
 
   const [users, setUsers] = useState<IUsers[]>([]);

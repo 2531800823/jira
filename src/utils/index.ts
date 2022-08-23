@@ -48,22 +48,3 @@ export const delIsNull = <T>(obj: T): T => {
   });
   return result as T;
 };
-
-export const useMount = (fn: Function) => {
-  useEffect(() => {
-    fn();
-  }, []);
-};
-
-export const useDebounce = <T>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [delay, value]);
-
-  return debouncedValue;
-};
